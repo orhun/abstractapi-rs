@@ -9,8 +9,7 @@ pub mod error;
 /// Common types that can be glob-imported for convenience.
 pub mod prelude;
 
-use api::geolocation::Geolocation;
-use api::ApiType;
+use api::prelude::*;
 use dashmap::DashMap;
 use error::{Error, Result};
 use std::time::Duration;
@@ -74,5 +73,23 @@ impl AbstractApi {
             .query("ip_address", ip_address.as_ref())
             .call()?
             .into_json::<Geolocation>()?)
+    }
+
+    /// Upstream documentation: <https://www.abstractapi.com/holidays-api>
+    pub fn get_holidays<S: AsRef<str>>(
+        &self,
+        country: S,
+        year: S,
+        month: S,
+        day: S,
+    ) -> Result<Holidays> {
+        Ok(self
+            .get_api_request(ApiType::Holidays)?
+            .query("country", country.as_ref())
+            .query("year", year.as_ref())
+            .query("month", month.as_ref())
+            .query("day", day.as_ref())
+            .call()?
+            .into_json::<Holidays>()?)
     }
 }

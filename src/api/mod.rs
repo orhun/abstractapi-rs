@@ -1,5 +1,9 @@
 /// Geolocation API.
 pub mod geolocation;
+/// Holidays API.
+pub mod holidays;
+/// Common types that can be glob-imported for convenience.
+pub mod prelude;
 
 use std::fmt;
 
@@ -8,6 +12,8 @@ use std::fmt;
 pub enum ApiType {
     /// Geolocation API.
     Geolocation,
+    /// Holidays API.
+    Holidays,
 }
 
 impl fmt::Display for ApiType {
@@ -17,6 +23,7 @@ impl fmt::Display for ApiType {
             "{}",
             match self {
                 Self::Geolocation => "ipgeolocation",
+                Self::Holidays => "holidays",
             }
         )
     }
