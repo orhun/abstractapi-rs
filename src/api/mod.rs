@@ -1,3 +1,5 @@
+/// Exchange rates API.
+pub mod exchange_rates;
 /// Geolocation API.
 pub mod geolocation;
 /// Holidays API.
@@ -14,6 +16,8 @@ pub enum ApiType {
     Geolocation,
     /// Holidays API.
     Holidays,
+    /// Exchange rates API.
+    ExchangeRates,
 }
 
 impl fmt::Display for ApiType {
@@ -24,6 +28,7 @@ impl fmt::Display for ApiType {
             match self {
                 Self::Geolocation => "ipgeolocation",
                 Self::Holidays => "holidays",
+                Self::ExchangeRates => "exchange-rates",
             }
         )
     }
