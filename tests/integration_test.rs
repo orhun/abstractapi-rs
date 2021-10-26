@@ -14,8 +14,8 @@ fn test_geolocation_api() -> Result<(), AbstractApiError> {
 
     let geolocation: Geolocation = abstractapi.get_geolocation("172.217.19.142")?;
     assert_eq!(
-        "Google LLC",
-        geolocation.connection.organization_name.unwrap()
+        Some("Google LLC"),
+        geolocation.connection.organization_name.as_deref()
     );
     Ok(())
 }
@@ -29,7 +29,7 @@ fn test_holidays_api() -> Result<(), AbstractApiError> {
     )?;
 
     let holidays: Holidays = abstractapi.get_holidays("TR", "2021", "10", "29")?;
-    assert_eq!("Republic Day", holidays.first().unwrap().name);
+    assert_eq!("Republic Day", holidays[0].name);
     Ok(())
 }
 
@@ -52,5 +52,20 @@ fn test_exchange_rates_api() -> Result<(), AbstractApiError> {
         abstractapi.convert_currency("USD", "TRY", Some("2021-01-31"), Some(10))?;
     assert_eq!(7.314766, converted_rate.exchange_rate);
     assert_eq!(73.14766, converted_rate.converted_amount);
+    Ok(())
+}
+
+#[test]
+fn test_company_enrichment_api() -> Result<(), AbstractApiError> {
+    let mut abstractapi = AbstractApi::new();
+    abstractapi.set_api_key(
+        ApiType::CompanyEnrichment,
+        env::var("COMPANY_ENRICHMENT_API_KEY").expect("COMPANY_ENRICHMENT_API_KEY is not set"),
+    )?;
+
+    let company_details: CompanyDetails =
+        abstractapi.get_company_details(Some("google.com"), None)?;
+    assert_eq!(Some(1998), company_details.year_founded);
+    assert_eq!(Some("United States"), company_details.country.as_deref());
     Ok(())
 }

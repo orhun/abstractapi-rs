@@ -148,4 +148,20 @@ impl AbstractApi {
         }
         Ok(request.call()?.into_json::<ConvertedExchangeRate>()?)
     }
+
+    /// Upstream documentation: <https://app.abstractapi.com/api/company-enrichment/documentation>
+    pub fn get_company_details<S: AsRef<str>>(
+        &self,
+        domain: Option<S>,
+        email: Option<S>,
+    ) -> Result<CompanyDetails> {
+        let mut request = self.get_api_request(ApiType::CompanyEnrichment, "v1")?;
+        if let Some(domain) = domain {
+            request = request.query("domain", domain.as_ref());
+        }
+        if let Some(email) = email {
+            request = request.query("email", email.as_ref());
+        }
+        Ok(request.call()?.into_json::<CompanyDetails>()?)
+    }
 }
