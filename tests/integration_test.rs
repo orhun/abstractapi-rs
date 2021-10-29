@@ -69,3 +69,28 @@ fn test_company_enrichment_api() -> Result<(), AbstractApiError> {
     assert_eq!(Some("United States"), company_details.country.as_deref());
     Ok(())
 }
+
+#[test]
+fn test_timezone_api() -> Result<(), AbstractApiError> {
+    let mut abstractapi = AbstractApi::new();
+    abstractapi.set_api_key(
+        ApiType::Timezone,
+        env::var("TIMEZONE_API_KEY").expect("TIMEZONE_API_KEY is not set"),
+    )?;
+
+    let current_time: LocationTime = abstractapi.get_current_time("Ankara")?;
+    assert_eq!("Europe/Istanbul", current_time.timezone_location);
+    assert_eq!(3., current_time.gmt_offset);
+    thread::sleep(Duration::from_secs(1));
+
+    let converted_time: ConvertedTime = abstractapi.convert_time(
+        "Los Angeles,CA",
+        "2020-05-01 07:00:00",
+        "Oxford,United Kingdom",
+    )?;
+    assert_eq!("PDT", converted_time.base_location.timezone_name);
+    assert_eq!(-7., converted_time.base_location.gmt_offset);
+    assert_eq!("BST", converted_time.target_location.timezone_name);
+    assert_eq!(1., converted_time.target_location.gmt_offset);
+    Ok(())
+}

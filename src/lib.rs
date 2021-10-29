@@ -164,4 +164,29 @@ impl AbstractApi {
         }
         Ok(request.call()?.into_json::<CompanyDetails>()?)
     }
+
+    /// Upstream documentation: <https://app.abstractapi.com/api/timezone/documentation>
+    pub fn get_current_time<S: AsRef<str>>(&self, location: S) -> Result<LocationTime> {
+        Ok(self
+            .get_api_request(ApiType::Timezone, "v1/current_time")?
+            .query("location", location.as_ref())
+            .call()?
+            .into_json::<LocationTime>()?)
+    }
+
+    /// Upstream documentation: <https://app.abstractapi.com/api/timezone/documentation>
+    pub fn convert_time<S: AsRef<str>>(
+        &self,
+        base_location: S,
+        base_datetime: S,
+        target_location: S,
+    ) -> Result<ConvertedTime> {
+        Ok(self
+            .get_api_request(ApiType::Timezone, "v1/convert_time")?
+            .query("base_location", base_location.as_ref())
+            .query("base_datetime", base_datetime.as_ref())
+            .query("target_location", target_location.as_ref())
+            .call()?
+            .into_json::<ConvertedTime>()?)
+    }
 }

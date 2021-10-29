@@ -8,6 +8,8 @@ pub mod geolocation;
 pub mod holidays;
 /// Common types that can be glob-imported for convenience.
 pub mod prelude;
+/// Timezone API.
+pub mod timezone;
 
 use std::fmt;
 
@@ -22,6 +24,8 @@ pub enum ApiType {
     ExchangeRates,
     /// Company details API.
     CompanyEnrichment,
+    /// Timezone API.
+    Timezone,
 }
 
 impl fmt::Display for ApiType {
@@ -34,6 +38,7 @@ impl fmt::Display for ApiType {
                 Self::Holidays => "holidays",
                 Self::ExchangeRates => "exchange-rates",
                 Self::CompanyEnrichment => "companyenrichment",
+                Self::Timezone => "timezone",
             }
         )
     }
