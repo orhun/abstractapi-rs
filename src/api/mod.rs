@@ -1,5 +1,7 @@
 /// Company details API.
 pub mod company_enrichment;
+/// Email validation API.
+pub mod email_validation;
 /// Exchange rates API.
 pub mod exchange_rates;
 /// Geolocation API.
@@ -26,6 +28,8 @@ pub enum ApiType {
     CompanyEnrichment,
     /// Timezone API.
     Timezone,
+    /// Email validation API.
+    EmailValidation,
 }
 
 impl fmt::Display for ApiType {
@@ -39,6 +43,7 @@ impl fmt::Display for ApiType {
                 Self::ExchangeRates => "exchange-rates",
                 Self::CompanyEnrichment => "companyenrichment",
                 Self::Timezone => "timezone",
+                Self::EmailValidation => "emailvalidation",
             }
         )
     }

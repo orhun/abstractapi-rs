@@ -109,3 +109,24 @@ fn test_timezone_api() -> Result<(), AbstractApiError> {
     assert_eq!(1., converted_time.target_location.gmt_offset);
     Ok(())
 }
+
+#[test]
+fn test_email_validation_api() -> Result<(), AbstractApiError> {
+    let mut abstractapi = AbstractApi::new();
+    abstractapi.set_api_key(
+        ApiType::EmailValidation,
+        env::var("EMAIL_VALIDATION_API_KEY").expect("EMAIL_VALIDATION_API_KEY is not set"),
+    )?;
+
+    sleep();
+    let email_result: EmailResult = abstractapi.validate_email("test@gmial.com", true)?;
+    assert_eq!("test@gmail.com", email_result.autocorrect);
+    assert_eq!("UNDELIVERABLE", email_result.deliverability);
+    assert!(email_result.is_valid_format.value);
+
+    sleep();
+    let email_result: EmailResult = abstractapi.validate_email("test@yopmail.com", true)?;
+    assert!(email_result.is_disposable_email.value);
+
+    Ok(())
+}
