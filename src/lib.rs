@@ -208,4 +208,14 @@ impl AbstractApi {
             .map_err(Error::from)?
             .into_json()?)
     }
+
+    /// Upstream documentation: <https://app.abstractapi.com/api/phone-validation/documentation>
+    pub fn validate_phone<S: AsRef<str>>(&self, phone: S) -> Result<PhoneResult> {
+        Ok(self
+            .get_api_request(ApiType::PhoneValidation, "v1")?
+            .query("phone", phone.as_ref())
+            .call()
+            .map_err(Error::from)?
+            .into_json()?)
+    }
 }

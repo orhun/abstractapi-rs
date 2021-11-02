@@ -8,6 +8,8 @@ pub mod exchange_rates;
 pub mod geolocation;
 /// Holidays API.
 pub mod holidays;
+/// Phone validation API.
+pub mod phone_validation;
 /// Common types that can be glob-imported for convenience.
 pub mod prelude;
 /// Timezone API.
@@ -30,6 +32,8 @@ pub enum ApiType {
     Timezone,
     /// Email validation API.
     EmailValidation,
+    /// Phone validation API.
+    PhoneValidation,
 }
 
 impl fmt::Display for ApiType {
@@ -44,6 +48,7 @@ impl fmt::Display for ApiType {
                 Self::CompanyEnrichment => "companyenrichment",
                 Self::Timezone => "timezone",
                 Self::EmailValidation => "emailvalidation",
+                Self::PhoneValidation => "phonevalidation",
             }
         )
     }

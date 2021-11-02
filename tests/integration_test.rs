@@ -130,3 +130,21 @@ fn test_email_validation_api() -> Result<(), AbstractApiError> {
 
     Ok(())
 }
+
+#[test]
+fn test_phone_validation_api() -> Result<(), AbstractApiError> {
+    let mut abstractapi = AbstractApi::new();
+    abstractapi.set_api_key(
+        ApiType::PhoneValidation,
+        env::var("PHONE_VALIDATION_API_KEY").expect("PHONE_VALIDATION_API_KEY is not set"),
+    )?;
+
+    sleep();
+    let phone_result: PhoneResult = abstractapi.validate_phone("14152007986")?;
+    assert!(phone_result.valid);
+    assert_eq!("US", phone_result.country.code);
+    assert_eq!("California", phone_result.location);
+    assert_eq!("mobile", phone_result.type_field);
+
+    Ok(())
+}
