@@ -74,7 +74,8 @@ impl AbstractApi {
         Ok(self
             .get_api_request(ApiType::Geolocation, "v1")?
             .query("ip_address", ip_address.as_ref())
-            .call()?
+            .call()
+            .map_err(Error::from)?
             .into_json::<Geolocation>()?)
     }
 
@@ -92,7 +93,8 @@ impl AbstractApi {
             .query("year", year.as_ref())
             .query("month", month.as_ref())
             .query("day", day.as_ref())
-            .call()?
+            .call()
+            .map_err(Error::from)?
             .into_json::<Holidays>()?)
     }
 
@@ -108,7 +110,10 @@ impl AbstractApi {
         if let Some(target) = target {
             request = request.query("target", target.as_ref());
         }
-        Ok(request.call()?.into_json::<ExchangeRatesResult>()?)
+        Ok(request
+            .call()
+            .map_err(Error::from)?
+            .into_json::<ExchangeRatesResult>()?)
     }
 
     /// Upstream documentation: <https://app.abstractapi.com/api/exchange-rates/documentation>
@@ -125,7 +130,10 @@ impl AbstractApi {
         if let Some(target) = target {
             request = request.query("target", target.as_ref());
         }
-        Ok(request.call()?.into_json::<ExchangeRatesResult>()?)
+        Ok(request
+            .call()
+            .map_err(Error::from)?
+            .into_json::<ExchangeRatesResult>()?)
     }
 
     /// Upstream documentation: <https://app.abstractapi.com/api/exchange-rates/documentation>
@@ -146,7 +154,10 @@ impl AbstractApi {
         if let Some(base_amount) = base_amount {
             request = request.query("base_amount", &base_amount.to_string());
         }
-        Ok(request.call()?.into_json::<ConvertedExchangeRate>()?)
+        Ok(request
+            .call()
+            .map_err(Error::from)?
+            .into_json::<ConvertedExchangeRate>()?)
     }
 
     /// Upstream documentation: <https://app.abstractapi.com/api/company-enrichment/documentation>
@@ -162,7 +173,10 @@ impl AbstractApi {
         if let Some(email) = email {
             request = request.query("email", email.as_ref());
         }
-        Ok(request.call()?.into_json::<CompanyDetails>()?)
+        Ok(request
+            .call()
+            .map_err(Error::from)?
+            .into_json::<CompanyDetails>()?)
     }
 
     /// Upstream documentation: <https://app.abstractapi.com/api/timezone/documentation>
@@ -170,7 +184,8 @@ impl AbstractApi {
         Ok(self
             .get_api_request(ApiType::Timezone, "v1/current_time")?
             .query("location", location.as_ref())
-            .call()?
+            .call()
+            .map_err(Error::from)?
             .into_json::<LocationTime>()?)
     }
 
@@ -186,7 +201,8 @@ impl AbstractApi {
             .query("base_location", base_location.as_ref())
             .query("base_datetime", base_datetime.as_ref())
             .query("target_location", target_location.as_ref())
-            .call()?
+            .call()
+            .map_err(Error::from)?
             .into_json::<ConvertedTime>()?)
     }
 }

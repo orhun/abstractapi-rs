@@ -14,10 +14,23 @@ thiserror_lite::err_enum! {
         ApiKeyNotPresent(ApiType),
         // Error that may occur when handling a request.
         #[error("Request error: `{0}`")]
-        RequestError(#[from] ureq::Error),
+        RequestError(String),
         // Error that may occur while handling IO operations.
         #[error("IO error: `{0}`")]
         IoError(#[from] std::io::Error)
+    }
+}
+
+impl From<ureq::Error> for Error {
+    fn from(error: ureq::Error) -> Self {
+        if cfg!(debug_assertions) {
+            Self::RequestError(format!("{:?}", error))
+        } else {
+            Self::RequestError(match error {
+                ureq::Error::Status(code, _) => code.to_string(),
+                ureq::Error::Transport(e) => e.to_string(),
+            })
+        }
     }
 }
 
