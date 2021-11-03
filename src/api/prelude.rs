@@ -5,4 +5,5 @@ pub use super::geolocation::*;
 pub use super::holidays::*;
 pub use super::phone_validation::*;
 pub use super::timezone::*;
+pub use super::vat::*;
 pub use super::ApiType;

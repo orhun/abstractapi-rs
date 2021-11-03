@@ -4,7 +4,9 @@ use std::env;
 use std::thread;
 use std::time::Duration;
 
+type TestResult = Result<(), AbstractApiError>;
 const SLEEP_DURATION: Option<&'static str> = option_env!("SLEEP_DURATION");
+
 fn sleep() {
     thread::sleep(Duration::from_millis(
         SLEEP_DURATION
@@ -15,7 +17,7 @@ fn sleep() {
 }
 
 #[test]
-fn test_geolocation_api() -> Result<(), AbstractApiError> {
+fn test_geolocation_api() -> TestResult {
     let mut abstractapi = AbstractApi::new();
     abstractapi.set_api_key(
         ApiType::Geolocation,
@@ -32,7 +34,7 @@ fn test_geolocation_api() -> Result<(), AbstractApiError> {
 }
 
 #[test]
-fn test_holidays_api() -> Result<(), AbstractApiError> {
+fn test_holidays_api() -> TestResult {
     let mut abstractapi = AbstractApi::new();
     abstractapi.set_api_key(
         ApiType::Holidays,
@@ -46,7 +48,7 @@ fn test_holidays_api() -> Result<(), AbstractApiError> {
 }
 
 #[test]
-fn test_exchange_rates_api() -> Result<(), AbstractApiError> {
+fn test_exchange_rates_api() -> TestResult {
     let mut abstractapi = AbstractApi::new();
     abstractapi.set_api_key(
         ApiType::ExchangeRates,
@@ -69,7 +71,7 @@ fn test_exchange_rates_api() -> Result<(), AbstractApiError> {
 }
 
 #[test]
-fn test_company_enrichment_api() -> Result<(), AbstractApiError> {
+fn test_company_enrichment_api() -> TestResult {
     let mut abstractapi = AbstractApi::new();
     abstractapi.set_api_key(
         ApiType::CompanyEnrichment,
@@ -85,7 +87,7 @@ fn test_company_enrichment_api() -> Result<(), AbstractApiError> {
 }
 
 #[test]
-fn test_timezone_api() -> Result<(), AbstractApiError> {
+fn test_timezone_api() -> TestResult {
     let mut abstractapi = AbstractApi::new();
     abstractapi.set_api_key(
         ApiType::Timezone,
@@ -111,7 +113,7 @@ fn test_timezone_api() -> Result<(), AbstractApiError> {
 }
 
 #[test]
-fn test_email_validation_api() -> Result<(), AbstractApiError> {
+fn test_email_validation_api() -> TestResult {
     let mut abstractapi = AbstractApi::new();
     abstractapi.set_api_key(
         ApiType::EmailValidation,
@@ -132,7 +134,7 @@ fn test_email_validation_api() -> Result<(), AbstractApiError> {
 }
 
 #[test]
-fn test_phone_validation_api() -> Result<(), AbstractApiError> {
+fn test_phone_validation_api() -> TestResult {
     let mut abstractapi = AbstractApi::new();
     abstractapi.set_api_key(
         ApiType::PhoneValidation,
@@ -145,6 +147,34 @@ fn test_phone_validation_api() -> Result<(), AbstractApiError> {
     assert_eq!("US", phone_result.country.code);
     assert_eq!("California", phone_result.location);
     assert_eq!("mobile", phone_result.type_);
+
+    Ok(())
+}
+
+#[test]
+fn test_vat_api() -> TestResult {
+    let mut abstractapi = AbstractApi::new();
+    abstractapi.set_api_key(
+        ApiType::Vat,
+        env::var("VAT_API_KEY").expect("VAT_API_KEY is not set"),
+    )?;
+
+    sleep();
+    let vat_result = abstractapi.validate_vat("SE556656688001")?;
+    assert!(vat_result.valid);
+    assert_eq!("GOOGLE SWEDEN AB", vat_result.company.name);
+    assert_eq!("SE", vat_result.country.code);
+
+    sleep();
+    let vat = abstractapi.calculate_vat(200., "DE", false, None)?;
+    assert_eq!("standard", vat.vat_category);
+    assert_eq!("DE", vat.country.code);
+
+    sleep();
+    let vat_rates = abstractapi.get_vat_rates("DE")?;
+    assert!(vat_rates
+        .iter()
+        .any(|vat_rate| vat_rate.category == "books"));
 
     Ok(())
 }

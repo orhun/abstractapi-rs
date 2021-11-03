@@ -14,6 +14,8 @@ pub mod phone_validation;
 pub mod prelude;
 /// Timezone API.
 pub mod timezone;
+/// VAT API.
+pub mod vat;
 
 use std::fmt;
 
@@ -34,6 +36,8 @@ pub enum ApiType {
     EmailValidation,
     /// Phone validation API.
     PhoneValidation,
+    /// VAT API.
+    Vat,
 }
 
 impl fmt::Display for ApiType {
@@ -49,6 +53,7 @@ impl fmt::Display for ApiType {
                 Self::Timezone => "timezone",
                 Self::EmailValidation => "emailvalidation",
                 Self::PhoneValidation => "phonevalidation",
+                Self::Vat => "vat",
             }
         )
     }

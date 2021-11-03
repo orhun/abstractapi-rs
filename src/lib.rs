@@ -218,4 +218,43 @@ impl AbstractApi {
             .map_err(Error::from)?
             .into_json()?)
     }
+
+    /// Upstream documentation: <https://app.abstractapi.com/api/vat/documentation>
+    pub fn validate_vat<S: AsRef<str>>(&self, vat_number: S) -> Result<VatResult> {
+        Ok(self
+            .get_api_request(ApiType::Vat, "v1/validate")?
+            .query("vat_number", vat_number.as_ref())
+            .call()
+            .map_err(Error::from)?
+            .into_json()?)
+    }
+
+    /// Upstream documentation: <https://app.abstractapi.com/api/vat/documentation>
+    pub fn calculate_vat<S: AsRef<str>>(
+        &self,
+        amount: f64,
+        country_code: S,
+        is_vat_incl: bool,
+        vat_category: Option<S>,
+    ) -> Result<Vat> {
+        let mut request = self
+            .get_api_request(ApiType::Vat, "v1/calculate")?
+            .query("amount", &amount.to_string())
+            .query("country_code", country_code.as_ref())
+            .query("is_vat_incl", &is_vat_incl.to_string());
+        if let Some(vat_category) = vat_category {
+            request = request.query("vat_category", vat_category.as_ref())
+        }
+        Ok(request.call().map_err(Error::from)?.into_json()?)
+    }
+
+    /// Upstream documentation: <https://app.abstractapi.com/api/vat/documentation>
+    pub fn get_vat_rates<S: AsRef<str>>(&self, country_code: S) -> Result<VatRates> {
+        Ok(self
+            .get_api_request(ApiType::Vat, "v1/categories")?
+            .query("country_code", country_code.as_ref())
+            .call()
+            .map_err(Error::from)?
+            .into_json()?)
+    }
 }

@@ -29,9 +29,9 @@ impl From<ureq::Error> for Error {
         } else {
             Self::RequestError(match error {
                 ureq::Error::Status(code, _) => {
-                    format!("Request error, code: {}", code.to_string())
+                    format!("code: {}", code.to_string())
                 }
-                ureq::Error::Transport(e) => format!("Transport error, source: {:?}", e.source()),
+                ureq::Error::Transport(e) => format!("source: {:?}", e.source()),
             })
         }
     }
