@@ -11,7 +11,7 @@ pub struct PhoneResult {
     pub country: Country,
     pub location: String,
     #[serde(rename = "type")]
-    pub type_field: String,
+    pub type_: String,
     pub carrier: String,
 }
 

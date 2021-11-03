@@ -15,7 +15,7 @@ pub struct Holiday {
     pub country: String,
     pub location: String,
     #[serde(rename = "type")]
-    pub type_field: String,
+    pub type_: String,
     pub date: String,
     #[serde(rename = "date_year")]
     pub date_year: String,

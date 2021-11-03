@@ -144,7 +144,7 @@ fn test_phone_validation_api() -> Result<(), AbstractApiError> {
     assert!(phone_result.valid);
     assert_eq!("US", phone_result.country.code);
     assert_eq!("California", phone_result.location);
-    assert_eq!("mobile", phone_result.type_field);
+    assert_eq!("mobile", phone_result.type_);
 
     Ok(())
 }
