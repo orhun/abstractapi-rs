@@ -52,6 +52,14 @@ impl AbstractApi {
         }
     }
 
+    /// Sets the API keys for specified APIs.
+    pub fn set_api_keys<S: Into<String>>(&mut self, api_keys: Vec<(ApiType, S)>) -> Result<()> {
+        for (api_type, api_key) in api_keys {
+            self.set_api_key(api_type, api_key)?;
+        }
+        Ok(())
+    }
+
     /// Constructs and returns an HTTP request for an API.
     fn get_api_request(&self, api_type: ApiType, path: &str) -> Result<Request> {
         Ok(self
