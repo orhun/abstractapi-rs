@@ -1,6 +1,7 @@
 #![allow(missing_docs)]
 
 use crate::api::ApiType;
+use std::error::Error as StdError;
 
 thiserror_lite::err_enum! {
     /// Custom errors.
@@ -27,8 +28,10 @@ impl From<ureq::Error> for Error {
             Self::RequestError(format!("{:?}", error))
         } else {
             Self::RequestError(match error {
-                ureq::Error::Status(code, _) => code.to_string(),
-                ureq::Error::Transport(e) => e.to_string(),
+                ureq::Error::Status(code, _) => {
+                    format!("Request error, code: {}", code.to_string())
+                }
+                ureq::Error::Transport(e) => format!("Transport error, source: {:?}", e.source()),
             })
         }
     }
