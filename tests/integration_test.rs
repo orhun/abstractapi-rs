@@ -115,13 +115,13 @@ fn test_email_validation_api() -> TestResult {
     )])?;
 
     sleep();
-    let email_result: EmailResult = abstractapi.validate_email("test@gmial.com", true)?;
+    let email_result: EmailDetails = abstractapi.validate_email("test@gmial.com", true)?;
     assert_eq!("test@gmail.com", email_result.autocorrect);
     assert_eq!("UNDELIVERABLE", email_result.deliverability);
     assert!(email_result.is_valid_format.value);
 
     sleep();
-    let email_result: EmailResult = abstractapi.validate_email("test@yopmail.com", true)?;
+    let email_result: EmailDetails = abstractapi.validate_email("test@yopmail.com", true)?;
     assert!(email_result.is_disposable_email.value);
 
     Ok(())
@@ -135,7 +135,7 @@ fn test_phone_validation_api() -> TestResult {
     )])?;
 
     sleep();
-    let phone_result: PhoneResult = abstractapi.validate_phone("14152007986")?;
+    let phone_result: PhoneDetails = abstractapi.validate_phone("14152007986")?;
     assert!(phone_result.valid);
     assert_eq!("US", phone_result.country.code);
     assert_eq!("California", phone_result.location);

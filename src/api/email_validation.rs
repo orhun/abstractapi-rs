@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct EmailResult {
+pub struct EmailDetails {
     pub email: String,
     pub autocorrect: String,
     pub deliverability: String,

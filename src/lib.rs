@@ -219,7 +219,7 @@ impl AbstractApi {
         &self,
         email: S,
         auto_correct: bool,
-    ) -> Result<EmailResult> {
+    ) -> Result<EmailDetails> {
         Ok(self
             .get_api_request(ApiType::EmailValidation, "v1")?
             .query("email", email.as_ref())
@@ -230,7 +230,7 @@ impl AbstractApi {
     }
 
     /// Upstream documentation: <https://app.abstractapi.com/api/phone-validation/documentation>
-    pub fn validate_phone<S: AsRef<str>>(&self, phone: S) -> Result<PhoneResult> {
+    pub fn validate_phone<S: AsRef<str>>(&self, phone: S) -> Result<PhoneDetails> {
         Ok(self
             .get_api_request(ApiType::PhoneValidation, "v1")?
             .query("phone", phone.as_ref())
@@ -240,7 +240,7 @@ impl AbstractApi {
     }
 
     /// Upstream documentation: <https://app.abstractapi.com/api/vat/documentation>
-    pub fn validate_vat<S: AsRef<str>>(&self, vat_number: S) -> Result<VatResult> {
+    pub fn validate_vat<S: AsRef<str>>(&self, vat_number: S) -> Result<VatDetails> {
         Ok(self
             .get_api_request(ApiType::Vat, "v1/validate")?
             .query("vat_number", vat_number.as_ref())

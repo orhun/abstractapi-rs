@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct VatResult {
+pub struct VatDetails {
     #[serde(rename = "vat_number")]
     pub vat_number: String,
     pub valid: bool,
