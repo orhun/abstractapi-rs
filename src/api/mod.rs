@@ -19,7 +19,7 @@ pub mod vat;
 
 use std::fmt;
 
-/// Type of an API.
+/// A supported API which is in free/paid plan.
 #[derive(Debug, Eq, Hash, PartialEq)]
 pub enum ApiType {
     /// Geolocation API.
