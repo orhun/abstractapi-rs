@@ -5,7 +5,7 @@ description = "Rust API bindings for the Abstract HTTP API"
 authors = ["Orhun Parmaksız <orhunparmaksiz@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 ureq = { version = "2.2", features = ["json"] }
