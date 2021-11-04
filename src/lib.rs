@@ -44,6 +44,13 @@ impl AbstractApi {
         }
     }
 
+    /// Creates a new Abstract API client with the given API keys set.
+    pub fn with_api_keys<S: Into<String>>(api_keys: Vec<(ApiType, S)>) -> Result<Self> {
+        let mut abstractapi = Self::new();
+        abstractapi.set_api_keys(api_keys)?;
+        Ok(abstractapi)
+    }
+
     /// Sets an API key for an API.
     pub fn set_api_key<S: Into<String>>(&mut self, api_type: ApiType, api_key: S) -> Result<()> {
         match self.api_keys.insert(api_type, api_key.into()) {
