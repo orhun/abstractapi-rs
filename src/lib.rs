@@ -26,14 +26,19 @@ pub struct AbstractApi {
 
 impl Default for AbstractApi {
     fn default() -> Self {
-        Self::new()
+        Self::with_http_client(AgentBuilder::new().timeout(Duration::from_secs(15)).build())
     }
 }
 
 impl AbstractApi {
     /// Creates a new Abstract API client with the default HTTP client.
-    pub fn new() -> Self {
-        Self::with_http_client(AgentBuilder::new().timeout(Duration::from_secs(15)).build())
+    pub fn new<S: Into<String>>(
+        http_client: HttpClient,
+        api_keys: Vec<(ApiType, S)>,
+    ) -> Result<Self> {
+        let mut abstractapi = Self::with_http_client(http_client);
+        abstractapi.set_api_keys(api_keys)?;
+        Ok(abstractapi)
     }
 
     /// Creates a new Abstract API client that uses the given HTTP client.
@@ -46,7 +51,7 @@ impl AbstractApi {
 
     /// Creates a new Abstract API client with the given API keys set.
     pub fn with_api_keys<S: Into<String>>(api_keys: Vec<(ApiType, S)>) -> Result<Self> {
-        let mut abstractapi = Self::new();
+        let mut abstractapi = Self::default();
         abstractapi.set_api_keys(api_keys)?;
         Ok(abstractapi)
     }

@@ -18,11 +18,10 @@ fn sleep() {
 
 #[test]
 fn test_geolocation_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::Geolocation,
         env::var("GEOLOCATION_API_KEY").expect("GEOLOCATION_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let geolocation: Geolocation = abstractapi.get_geolocation("172.217.19.142")?;
@@ -35,11 +34,10 @@ fn test_geolocation_api() -> TestResult {
 
 #[test]
 fn test_holidays_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::Holidays,
         env::var("HOLIDAYS_API_KEY").expect("HOLIDAYS_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let holidays: Holidays = abstractapi.get_holidays("TR", "2021", "10", "29")?;
@@ -49,11 +47,10 @@ fn test_holidays_api() -> TestResult {
 
 #[test]
 fn test_exchange_rates_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::ExchangeRates,
         env::var("EXCHANGE_RATES_API_KEY").expect("EXCHANGE_RATES_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let _ = abstractapi.get_latest_exchange_rates("BTC", Some("USD"))?;
@@ -72,11 +69,10 @@ fn test_exchange_rates_api() -> TestResult {
 
 #[test]
 fn test_company_enrichment_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::CompanyEnrichment,
         env::var("COMPANY_ENRICHMENT_API_KEY").expect("COMPANY_ENRICHMENT_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let company_details: CompanyDetails =
@@ -88,11 +84,10 @@ fn test_company_enrichment_api() -> TestResult {
 
 #[test]
 fn test_timezone_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::Timezone,
         env::var("TIMEZONE_API_KEY").expect("TIMEZONE_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let current_time: LocationTime = abstractapi.get_current_time("Ankara")?;
@@ -114,11 +109,10 @@ fn test_timezone_api() -> TestResult {
 
 #[test]
 fn test_email_validation_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::EmailValidation,
         env::var("EMAIL_VALIDATION_API_KEY").expect("EMAIL_VALIDATION_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let email_result: EmailResult = abstractapi.validate_email("test@gmial.com", true)?;
@@ -135,11 +129,10 @@ fn test_email_validation_api() -> TestResult {
 
 #[test]
 fn test_phone_validation_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::PhoneValidation,
         env::var("PHONE_VALIDATION_API_KEY").expect("PHONE_VALIDATION_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let phone_result: PhoneResult = abstractapi.validate_phone("14152007986")?;
@@ -153,11 +146,10 @@ fn test_phone_validation_api() -> TestResult {
 
 #[test]
 fn test_vat_api() -> TestResult {
-    let mut abstractapi = AbstractApi::new();
-    abstractapi.set_api_key(
+    let abstractapi = AbstractApi::with_api_keys(vec![(
         ApiType::Vat,
         env::var("VAT_API_KEY").expect("VAT_API_KEY is not set"),
-    )?;
+    )])?;
 
     sleep();
     let vat_result = abstractapi.validate_vat("SE556656688001")?;
