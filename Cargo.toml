@@ -1,7 +1,10 @@
 [package]
 name = "abstractapi"
 version = "0.1.0"
+description = "Rust API bindings for the Abstract HTTP API"
 authors = ["Orhun Parmaksız <orhunparmaksiz@gmail.com>"]
+license = "MIT"
+readme = "README.md"
 edition = "2018"
 
 [dependencies]
