@@ -87,4 +87,4 @@ Pull requests are welcome!
 
 ## License
 
-All code is licensed under [The MIT License](./LICENSE).
+All code is dual licensed under [The MIT License](./LICENSE-MIT) and [Apache 2.0 License](./LICENSE-APACHE).
