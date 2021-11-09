@@ -5,6 +5,11 @@ description = "Rust API bindings for the Abstract HTTP API"
 authors = ["Orhun Parmaksız <orhunparmaksiz@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/orhun/abstractapi-rs"
+repository = "https://github.com/orhun/abstractapi-rs"
+keywords = ["abstract", "v1", "api"]
+categories = ["api-bindings"]
+include = ["src/**/*", "Cargo.*", "LICENSE", "README.md", "CHANGELOG.md"]
 edition = "2021"
 
 [dependencies]
