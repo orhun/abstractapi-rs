@@ -4,7 +4,7 @@ Rust API bindings for the [**Abstract**](https://www.abstractapi.com/) HTTP API.
 
 ## APIs
 
-`abstractapi-rs` is compatible with `v1` versions of the following API's that Abstract provides in free plan:
+`abstractapi-rs` is compatible with `v1` versions of the following API's that Abstract provides:
 
 - [x] Verify
   - [x] [Email validation](https://app.abstractapi.com/api/email-validation)
@@ -47,15 +47,15 @@ abstractapi.set_api_key(abstractapi::ApiType::Geolocation, "<api_key>").unwrap()
 
 See [`ApiType`](https://docs.rs/abstractapi/latest/abstractapi/enum.ApiType.html) enum for currently supported APIs.
 
-Next step would be calling the function related to the API you want to use:
+The next step would be calling the function related to the API you want to use:
 
 ```rs
 let geolocation: abstractapi::api::Geolocation = abstractapi.get_geolocation("172.217.19.142").unwrap();
 ```
 
-Function parameters and return values (`Struct`s) are directly mapped from the [offical API documentation](#apis) so you may frequently need to refer to it for the meaning of these fields.
+Function parameters and return values (`Struct`s) are directly mapped from the [official API documentation](#apis) so you may frequently need to refer to it for the meaning of these fields.
 
-Alternatively, you can use `prelude` module for glob-importing the common types. Here is a full example that shows the basic usage of phone validation API:
+Alternatively, you can use the `prelude` module for glob-importing the common types. Here is a full example that shows the basic usage of phone validation API:
 
 ```rs
 use abstractapi::prelude::*;
@@ -87,4 +87,4 @@ Pull requests are welcome!
 
 ## License
 
-All code is dual licensed under [The MIT License](./LICENSE-MIT) and [Apache 2.0 License](./LICENSE-APACHE).
+All code is dual-licensed under [The MIT License](./LICENSE-MIT) and [Apache 2.0 License](./LICENSE-APACHE).
