@@ -3,7 +3,7 @@ fn main() {
     let mut abstractapi = abstractapi::AbstractApi::default();
     abstractapi
         .set_api_key(
-            abstractapi::api::ApiType::ExchangeRates,
+            abstractapi::ApiType::ExchangeRates,
             std::env::var("EXCHANGE_RATES_API_KEY").unwrap(),
         )
         .unwrap();

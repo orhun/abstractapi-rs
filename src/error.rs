@@ -1,6 +1,6 @@
 #![allow(missing_docs)]
 
-use crate::api::ApiType;
+use crate::ApiType;
 use std::error::Error as StdError;
 
 thiserror_lite::err_enum! {

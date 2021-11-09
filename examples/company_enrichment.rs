@@ -3,7 +3,7 @@ fn main() {
     let mut abstractapi = abstractapi::AbstractApi::default();
     abstractapi
         .set_api_key(
-            abstractapi::api::ApiType::CompanyEnrichment,
+            abstractapi::ApiType::CompanyEnrichment,
             std::env::var("COMPANY_ENRICHMENT_API_KEY").unwrap(),
         )
         .unwrap();

@@ -3,7 +3,7 @@ fn main() {
     let mut abstractapi = abstractapi::AbstractApi::default();
     abstractapi
         .set_api_key(
-            abstractapi::api::ApiType::Timezone,
+            abstractapi::ApiType::Timezone,
             std::env::var("TIMEZONE_API_KEY").unwrap(),
         )
         .unwrap();

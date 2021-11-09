@@ -3,7 +3,7 @@ fn main() {
     let mut abstractapi = abstractapi::AbstractApi::default();
     abstractapi
         .set_api_key(
-            abstractapi::api::ApiType::EmailValidation,
+            abstractapi::ApiType::EmailValidation,
             std::env::var("EMAIL_VALIDATION_API_KEY").unwrap(),
         )
         .unwrap();

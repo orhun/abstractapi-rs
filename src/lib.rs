@@ -12,11 +12,52 @@ pub mod prelude;
 use api::prelude::*;
 use dashmap::DashMap;
 use error::{Error, Result};
+use std::fmt;
 use std::time::Duration;
 use ureq::{Agent as HttpClient, AgentBuilder, Request};
 
 /// Base domain for Abstract API.
 const ABSTRACTAPI_DOMAIN: &str = "abstractapi.com";
+
+/// A supported API which is in free/paid plan.
+#[derive(Debug, Eq, Hash, PartialEq)]
+pub enum ApiType {
+    /// Geolocation API.
+    Geolocation,
+    /// Holidays API.
+    Holidays,
+    /// Exchange rates API.
+    ExchangeRates,
+    /// Company details API.
+    CompanyEnrichment,
+    /// Timezone API.
+    Timezone,
+    /// Email validation API.
+    EmailValidation,
+    /// Phone validation API.
+    PhoneValidation,
+    /// VAT API.
+    Vat,
+}
+
+impl fmt::Display for ApiType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                Self::Geolocation => "ipgeolocation",
+                Self::Holidays => "holidays",
+                Self::ExchangeRates => "exchange-rates",
+                Self::CompanyEnrichment => "companyenrichment",
+                Self::Timezone => "timezone",
+                Self::EmailValidation => "emailvalidation",
+                Self::PhoneValidation => "phonevalidation",
+                Self::Vat => "vat",
+            }
+        )
+    }
+}
 
 /// Client for Abstract API.
 pub struct AbstractApi {

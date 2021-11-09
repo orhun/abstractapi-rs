@@ -3,7 +3,7 @@ fn main() {
     let mut abstractapi = abstractapi::AbstractApi::default();
     abstractapi
         .set_api_key(
-            abstractapi::api::ApiType::Vat,
+            abstractapi::ApiType::Vat,
             std::env::var("VAT_API_KEY").unwrap(),
         )
         .unwrap();
