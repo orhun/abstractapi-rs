@@ -67,7 +67,7 @@ pub struct AbstractApi {
 
 impl Default for AbstractApi {
     fn default() -> Self {
-        Self::with_http_client(AgentBuilder::new().timeout(Duration::from_secs(15)).build())
+        Self::new_with_http_client(AgentBuilder::new().timeout(Duration::from_secs(15)).build())
     }
 }
 
@@ -77,21 +77,28 @@ impl AbstractApi {
         http_client: HttpClient,
         api_keys: Vec<(ApiType, S)>,
     ) -> Result<Self> {
-        let mut abstractapi = Self::with_http_client(http_client);
+        let mut abstractapi = Self::new_with_http_client(http_client);
         abstractapi.set_api_keys(api_keys)?;
         Ok(abstractapi)
     }
 
     /// Creates a new Abstract API client that uses the given HTTP client.
-    pub fn with_http_client(http_client: HttpClient) -> Self {
+    pub fn new_with_http_client(http_client: HttpClient) -> Self {
         Self {
             http_client,
             api_keys: DashMap::new(),
         }
     }
 
+    /// Creates a new Abstract API client with the given API key set.
+    pub fn new_with_api_key<S: Into<String>>(api_type: ApiType, api_key: S) -> Result<Self> {
+        let mut abstractapi = Self::default();
+        abstractapi.set_api_key(api_type, api_key)?;
+        Ok(abstractapi)
+    }
+
     /// Creates a new Abstract API client with the given API keys set.
-    pub fn with_api_keys<S: Into<String>>(api_keys: Vec<(ApiType, S)>) -> Result<Self> {
+    pub fn new_with_api_keys<S: Into<String>>(api_keys: Vec<(ApiType, S)>) -> Result<Self> {
         let mut abstractapi = Self::default();
         abstractapi.set_api_keys(api_keys)?;
         Ok(abstractapi)

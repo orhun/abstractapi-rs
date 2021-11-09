@@ -55,17 +55,22 @@ let geolocation: abstractapi::api::Geolocation = abstractapi.get_geolocation("17
 
 Function parameters and return values (`Struct`s) are directly mapped from the [official API documentation](#apis) so you may frequently need to refer to it for the meaning of these fields.
 
-Alternatively, you can use the `prelude` module for glob-importing the common types. Here is a full example that shows the basic usage of phone validation API:
+#### Tips
+
+- You can use the [`prelude`](https://docs.rs/abstractapi/latest/abstractapi/prelude/index.html) module for glob-importing the common types.
+- There are alternative constructor methods available for creating a client with API keys. (e.g. [`new_with_api_keys`](https://docs.rs/abstractapi/latest/abstractapi/struct.AbstractApi.html#method.new_with_api_keys))
+
+Here is a full example that shows the basic usage of phone validation API:
 
 ```rs
 use abstractapi::prelude::*;
 
 fn main() -> Result<(), AbstractApiError> {
     // Create a new Abstract API client for phone validation.
-    let abstractapi = AbstractApi::with_api_keys(vec![(
+    let abstractapi = AbstractApi::new_with_api_key(
         ApiType::PhoneValidation,
         std::env::var("PHONE_VALIDATION_API_KEY").unwrap(),
-    )])?;
+    )?;
 
     // Get the phone number details.
     let phone_details: PhoneDetails = abstractapi.validate_phone("14152007986")?;
