@@ -10,9 +10,17 @@ pub mod geolocation;
 pub mod holidays;
 /// Phone validation API.
 pub mod phone_validation;
-/// Common types that can be glob-imported for convenience.
-pub mod prelude;
 /// Timezone API.
 pub mod timezone;
 /// VAT API.
 pub mod vat;
+
+/// Export API types for convenience.
+pub use company_enrichment::*;
+pub use email_validation::*;
+pub use exchange_rates::*;
+pub use geolocation::*;
+pub use holidays::*;
+pub use phone_validation::*;
+pub use timezone::*;
+pub use vat::*;

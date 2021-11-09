@@ -9,7 +9,7 @@ pub mod error;
 /// Common types that can be glob-imported for convenience.
 pub mod prelude;
 
-use api::prelude::*;
+use api::*;
 use dashmap::DashMap;
 use error::{Error, Result};
 use std::fmt;
