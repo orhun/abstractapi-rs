@@ -1,0 +1,90 @@
+## abstractapi-rs
+
+Rust API bindings for the [**Abstract**](https://www.abstractapi.com/) HTTP API.
+
+## APIs
+
+`abstractapi-rs` is compatible with `v1` versions of the following API's that Abstract provides in free plan:
+
+- [x] Verify
+  - [x] [Email validation](https://app.abstractapi.com/api/email-validation)
+  - [x] [Phone validation](https://app.abstractapi.com/api/phone-validation)
+  - [x] [VAT](https://app.abstractapi.com/api/vat)
+- [x] Lookup
+  - [x] [IP geolocation](https://app.abstractapi.com/api/ip-geolocation)
+  - [x] [Holidays](https://app.abstractapi.com/api/holidays)
+  - [x] [Exchange rates](https://app.abstractapi.com/api/exchange-rates)
+  - [x] [Company enrichment](https://app.abstractapi.com/api/company-enrichment)
+  - [x] [Timezone](https://app.abstractapi.com/api/timezone)
+- [ ] Create
+  - [ ] [Avatars](https://app.abstractapi.com/api/avatars)
+  - [ ] [Screenshot](https://app.abstractapi.com/api/screenshot)
+  - [ ] [Scrape](https://app.abstractapi.com/api/scrape)
+  - [ ] [Images](https://app.abstractapi.com/api/images)
+
+## Usage
+
+Add `abstractapi` to dependencies in your `Cargo.toml`:
+
+```toml
+[dependencies]
+abstractapi = "0.1.*"
+```
+
+## Getting Started
+
+In order to interact with the APIs, you need to create a client ([`AbstractApi`](https://docs.rs/abstractapi/latest/abstractapi/struct.AbstractApi.html)) first:
+
+```rs
+let mut abstractapi = abstractapi::AbstractApi::default();
+```
+
+Then you should set an API key specific for the API you would like to use. Here is an example for [Geolocation API](https://app.abstractapi.com/api/ip-geolocation):
+
+```rs
+abstractapi.set_api_key(abstractapi::ApiType::Geolocation, "<api_key>").unwrap();
+```
+
+See [`ApiType`](https://docs.rs/abstractapi/latest/abstractapi/enum.ApiType.html) enum for currently supported APIs.
+
+Next step would be calling the function related to the API you want to use:
+
+```rs
+let geolocation: abstractapi::api::Geolocation = abstractapi.get_geolocation("172.217.19.142").unwrap();
+```
+
+Function parameters and return values (`Struct`s) are directly mapped from the [offical API documentation](#apis) so you may frequently need to refer to it for the meaning of these fields.
+
+Alternatively, you can use `prelude` module for glob-importing the common types. Here is a full example that shows the basic usage of phone validation API:
+
+```rs
+use abstractapi::prelude::*;
+
+fn main() -> Result<(), AbstractApiError> {
+    // Create a new Abstract API client for phone validation.
+    let abstractapi = AbstractApi::with_api_keys(vec![(
+        ApiType::PhoneValidation,
+        std::env::var("PHONE_VALIDATION_API_KEY").unwrap(),
+    )])?;
+
+    // Get the phone number details.
+    let phone_details: PhoneDetails = abstractapi.validate_phone("14152007986")?;
+
+    // Print the result.
+    println!("{:#?}", phone_details);
+
+    Ok(())
+}
+```
+
+## Examples
+
+Look through the [examples folder](./examples/) to see how the library can be used for integrating different [APIs](#apis).
+
+## Contributing
+
+Pull requests are welcome!
+
+## License
+
+All code is licensed under [The MIT License](./LICENSE).
