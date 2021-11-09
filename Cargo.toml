@@ -13,7 +13,7 @@ include = ["src/**/*", "Cargo.*", "LICENSE-*", "README.md", "CHANGELOG.md"]
 edition = "2021"
 
 [dependencies]
-ureq = { version = "2.2", features = ["json"] }
+ureq = { version = "2.3", features = ["json"] }
 serde = { version = "1.0", features = ["derive"] }
 thiserror_lite = "0.1"
 dashmap = "4.0"
