@@ -3,6 +3,7 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/orhun/abstractapi-rs/Continuous%20Integration)](https://github.com/orhun/abstractapi-rs/actions)
 [![Crates.io](https://img.shields.io/crates/v/abstractapi)](https://crates.io/crates/abstractapi)
 [![docs.rs](https://img.shields.io/docsrs/abstractapi)](https://docs.rs/abstractapi/latest)
+[![Codecov](https://img.shields.io/codecov/c/gh/orhun/abstractapi-rs)](https://app.codecov.io/gh/orhun/abstractapi-rs)
 
 Rust API bindings for the [**Abstract**](https://www.abstractapi.com/) HTTP API.
 
