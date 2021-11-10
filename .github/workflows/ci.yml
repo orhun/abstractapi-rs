@@ -72,7 +72,7 @@ jobs:
       - name: Run tests
         run: |
           curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-linux-x86_64.tar.bz2 | tar jxf -
-          cargo test --release --verbose -- --test-threads 1
+          cargo test --verbose -- --test-threads 1
           zip -0 ccov.zip `find . \( -name "abstractapi*.gc*" \) -print`;
           ./grcov ccov.zip -s . -t lcov --llvm --branch --ignore-not-existing --ignore "/*" -o lcov.info;
           bash <(curl -s https://codecov.io/bash) -f lcov.info;
