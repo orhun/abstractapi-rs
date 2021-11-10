@@ -1,8 +1,8 @@
 # abstractapi-rs
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/orhun/abstractapi-rs/Continuous%20Integration)
-![Crates.io](https://img.shields.io/crates/v/abstractapi)
-![docs.rs](https://img.shields.io/docsrs/abstractapi)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/orhun/abstractapi-rs/Continuous%20Integration)](https://github.com/orhun/abstractapi-rs/actions)
+[![Crates.io](https://img.shields.io/crates/v/abstractapi)](https://crates.io/crates/abstractapi)
+[![docs.rs](https://img.shields.io/docsrs/abstractapi)](https://docs.rs/abstractapi/latest)
 
 Rust API bindings for the [**Abstract**](https://www.abstractapi.com/) HTTP API.
 
