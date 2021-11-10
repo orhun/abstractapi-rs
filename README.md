@@ -1,4 +1,4 @@
-## abstractapi-rs
+# abstractapi-rs
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/orhun/abstractapi-rs/Continuous%20Integration)
 ![Crates.io](https://img.shields.io/crates/v/abstractapi)
