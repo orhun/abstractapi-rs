@@ -74,6 +74,15 @@ jobs:
         with:
           command: test
           args: --release -- --test-threads 1
+        env:
+          TIMEZONE_API_KEY: ${{ secrets.TIMEZONE_API_KEY }}
+          COMPANY_ENRICHMENT_API_KEY: ${{ secrets.COMPANY_ENRICHMENT_API_KEY }}
+          EXCHANGE_RATES_API_KEY: ${{ secrets.EXCHANGE_RATES_API_KEY }}
+          HOLIDAYS_API_KEY: ${{ secrets.HOLIDAYS_API_KEY }}
+          GEOLOCATION_API_KEY: ${{ secrets.GEOLOCATION_API_KEY }}
+          EMAIL_VALIDATION_API_KEY: ${{ secrets.EMAIL_VALIDATION_API_KEY }}
+          PHONE_VALIDATION_API_KEY: ${{ secrets.PHONE_VALIDATION_API_KEY }}
+          VAT_API_KEY: ${{ secrets.VAT_API_KEY }}
 
   audit:
     name: Perform audit for security
