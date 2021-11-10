@@ -67,14 +67,19 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: nightly
           override: true
       - name: Run tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --release -- --test-threads 1
+        run: |
+          curl -L https://github.com/mozilla/grcov/releases/latest/download/grcov-linux-x86_64.tar.bz2 | tar jxf -
+          cargo test --release --verbose -- --test-threads 1
+          zip -0 ccov.zip `find . \( -name "abstractapi*.gc*" \) -print`;
+          ./grcov ccov.zip -s . -t lcov --llvm --branch --ignore-not-existing --ignore "/*" -o lcov.info;
+          bash <(curl -s https://codecov.io/bash) -f lcov.info;
         env:
+          CARGO_INCREMENTAL: 0
+          RUSTFLAGS: "-Zprofile -Ccodegen-units=1 -Copt-level=0 -Clink-dead-code -Coverflow-checks=off -Zpanic_abort_tests -Cpanic=abort"
+          RUSTDOCFLAGS: "-Cpanic=abort"
           TIMEZONE_API_KEY: ${{ secrets.TIMEZONE_API_KEY }}
           COMPANY_ENRICHMENT_API_KEY: ${{ secrets.COMPANY_ENRICHMENT_API_KEY }}
           EXCHANGE_RATES_API_KEY: ${{ secrets.EXCHANGE_RATES_API_KEY }}
