@@ -17,6 +17,7 @@ ureq = { version = "2.3", features = ["json"] }
 serde = { version = "1.0", features = ["derive"] }
 thiserror_lite = "0.1"
 dashmap = "4.0"
+lazy-regex = "2.2"
 
 [dev-dependencies]
 pretty_assertions = "1.0.0"

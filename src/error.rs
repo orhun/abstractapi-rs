@@ -1,7 +1,10 @@
 #![allow(missing_docs)]
 
 use crate::ApiType;
-use std::error::Error as StdError;
+use lazy_regex::*;
+
+/// Regex for matching the API key from an error response.
+static API_KEY_REGEX: Lazy<Regex> = lazy_regex!("api_key=[a-zA-Z0-9]{32,}");
 
 thiserror_lite::err_enum! {
     /// Custom errors.
@@ -24,16 +27,11 @@ thiserror_lite::err_enum! {
 
 impl From<ureq::Error> for Error {
     fn from(error: ureq::Error) -> Self {
-        if cfg!(debug_assertions) {
-            Self::RequestError(format!("{:?}", error))
-        } else {
-            Self::RequestError(match error {
-                ureq::Error::Status(code, _) => {
-                    format!("code: {}", code.to_string())
-                }
-                ureq::Error::Transport(e) => format!("source: {:?}", e.source()),
-            })
-        }
+        Self::RequestError(
+            API_KEY_REGEX
+                .replace(&format!("{:?}", error), "api_key=***")
+                .to_string(),
+        )
     }
 }
 
