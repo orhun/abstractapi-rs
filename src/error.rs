@@ -47,7 +47,7 @@ mod tests {
         let mock_url = "https://emailvalidation.abstractapi.com/v1/?api_key=ef0482afc956e2ede15ed2d4b7c9c01e&email=test%40gmial.com&auto_correct=false";
         let ureq_error = ureq::get(mock_url).call().unwrap_err();
         let error = Error::from(ureq_error);
-        assert_eq!("Request error: `Status(401, Response[status: 401, status_text: Unauthorized, \
-            url: https://emailvalidation.abstractapi.com/v1/?api_key=***&email=test%40gmial.com&auto_correct=false])`", error.to_string());
+        assert_eq!("RequestError(\"Status(401, Response[status: 401, status_text: Unauthorized, \
+            url: https://emailvalidation.abstractapi.com/v1/?api_key=***&email=test%40gmial.com&auto_correct=false])\")", format!("{:?}", error));
     }
 }
