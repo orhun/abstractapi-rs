@@ -9,12 +9,12 @@ pub struct Geolocation {
     pub ip_address: String,
     pub city: Option<String>,
     #[serde(rename = "city_geoname_id")]
-    pub city_geoname_id: Option<String>,
+    pub city_geoname_id: i64,
     pub region: Option<String>,
     #[serde(rename = "region_iso_code")]
     pub region_iso_code: Option<String>,
     #[serde(rename = "region_geoname_id")]
-    pub region_geoname_id: Option<String>,
+    pub region_geoname_id: i64,
     #[serde(rename = "postal_code")]
     pub postal_code: Option<String>,
     pub country: String,
