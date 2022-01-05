@@ -33,7 +33,7 @@ pub struct Geolocation {
     pub latitude: f64,
     pub security: Security,
     pub timezone: Timezone,
-    pub flag: Flag,
+    pub flag: Option<Flag>,
     pub currency: Currency,
     pub connection: Connection,
 }
