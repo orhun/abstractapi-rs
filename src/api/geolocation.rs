@@ -34,7 +34,7 @@ pub struct Geolocation {
     pub security: Security,
     pub timezone: Timezone,
     pub flag: Option<Flag>,
-    pub currency: Currency,
+    pub currency: Option<Currency>,
     pub connection: Connection,
 }
 
