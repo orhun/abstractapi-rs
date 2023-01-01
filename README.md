@@ -98,3 +98,7 @@ Pull requests are welcome!
 ## License
 
 All code is dual-licensed under [The MIT License](./LICENSE-MIT) and [Apache 2.0 License](./LICENSE-APACHE).
+
+## Copyright
+
+Copyright © 2021-2023, [Orhun Parmaksız](mailto:orhunparmaksiz@gmail.com)
