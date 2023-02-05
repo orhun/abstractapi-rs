@@ -124,9 +124,7 @@ impl AbstractApi {
     fn get_api_request(&self, api_type: ApiType, path: &str) -> Result<Request> {
         Ok(self
             .http_client
-            .get(&format!(
-                "https://{api_type}.{ABSTRACTAPI_DOMAIN}/{path}/"
-            ))
+            .get(&format!("https://{api_type}.{ABSTRACTAPI_DOMAIN}/{path}/"))
             .query(
                 "api_key",
                 self.api_keys
