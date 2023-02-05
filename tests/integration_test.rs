@@ -10,8 +10,7 @@ const SLEEP_DURATION: Option<&'static str> = option_env!("SLEEP_DURATION");
 fn sleep() {
     thread::sleep(Duration::from_millis(
         SLEEP_DURATION
-            .map(|v| v.parse().ok())
-            .flatten()
+            .and_then(|v| v.parse().ok())
             .unwrap_or(1000),
     ));
 }

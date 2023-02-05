@@ -125,8 +125,7 @@ impl AbstractApi {
         Ok(self
             .http_client
             .get(&format!(
-                "https://{}.{}/{}/",
-                api_type, ABSTRACTAPI_DOMAIN, path
+                "https://{api_type}.{ABSTRACTAPI_DOMAIN}/{path}/"
             ))
             .query(
                 "api_key",

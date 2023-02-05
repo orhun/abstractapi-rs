@@ -29,7 +29,7 @@ impl From<ureq::Error> for Error {
     fn from(error: ureq::Error) -> Self {
         Self::RequestError(
             API_KEY_REGEX
-                .replace(&format!("{:?}", error), "api_key=***")
+                .replace(&format!("{error:?}"), "api_key=***")
                 .to_string(),
         )
     }
@@ -48,6 +48,6 @@ mod tests {
         let ureq_error = ureq::get(mock_url).call().unwrap_err();
         let error = Error::from(ureq_error);
         assert_eq!("RequestError(\"Status(401, Response[status: 401, status_text: Unauthorized, \
-            url: https://emailvalidation.abstractapi.com/v1/?api_key=***&email=test%40gmial.com&auto_correct=false])\")", format!("{:?}", error));
+            url: https://emailvalidation.abstractapi.com/v1/?api_key=***&email=test%40gmial.com&auto_correct=false])\")", format!("{error:?}"));
     }
 }
